@@ -339,7 +339,11 @@ export default function CreateReservationForm({ categoryPackageId }) {
                                     value={time.id.toString()}
                                     id={`time-${time.id}`}
                                     disabled={isDisabled}
-                                    className="data-disabled w-full disabled:opacity-100 data-[disabled]:border-gray-300/60 data-[disabled]:bg-gray-300/60 data-[disabled]:text-black"
+                                    className={cn(
+                                      "w-full",
+                                      isDisabled &&
+                                        "cursor-not-allowed !border-gray-400/60 !bg-gray-400/60 !text-black !opacity-100",
+                                    )}
                                   >
                                     <Label htmlFor={`time-${time.id}`}>
                                       {timeFormat(time.time)}
