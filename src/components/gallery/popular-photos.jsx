@@ -20,11 +20,11 @@ export default function PopularPhotos() {
           alt="Foto Populer"
           className="h-[254px] w-[171.5px] object-cover lg:h-[412px] lg:w-[320px]"
         />
-        {/* <img
+        <img
           src="/gallery/popular/4.png"
           alt="Foto Populer"
           className="h-[254px] w-[171.5px] object-cover lg:h-[412px] lg:w-[320px]"
-        /> */}
+        />
       </div>
     </div>
   );

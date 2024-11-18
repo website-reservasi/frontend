@@ -41,7 +41,8 @@ export default function Header() {
     <header className="sticky top-0 z-40 w-full bg-white">
       <div className="mx-auto h-16 w-full max-w-[1440px] px-4 font-medium lg:h-20 lg:px-20">
         <nav className="inline-flex h-full w-full items-center justify-between">
-          <img src="/logo.png" alt="Logo" className="h-8 lg:h-14" />
+          <img src="/logo.png" alt="Logo" className="h-9 lg:h-12" />
+          {/* <p className="text-3xl h-3 lg:h-10">Infokus</p> */}
           <ul className="hidden gap-11 lg:inline-flex">
             {links.map((link, index) => {
               const isActive =
@@ -69,6 +70,19 @@ export default function Header() {
             {isLoading && <Spinner className="h-6 w-6" />}
             {!user && (
               <>
+               <Link
+                  to="/login"
+                  className={cn(
+                    buttonVariants({
+                      variant:"line",
+                      size: "lg",
+                    }),
+                    "font-bold",
+                  )}
+                >
+                  Masuk
+                </Link>
+                
                 <Link
                   to="/register"
                   className={cn(
@@ -80,17 +94,7 @@ export default function Header() {
                 >
                   Daftar
                 </Link>
-                <Link
-                  to="/login"
-                  className={cn(
-                    buttonVariants({
-                      size: "lg",
-                    }),
-                    "font-bold",
-                  )}
-                >
-                  Masuk
-                </Link>
+               
               </>
             )}
             {user && <ProfileMenu />}
@@ -137,8 +141,9 @@ export default function Header() {
                   {isLoading && <Spinner className="h-6 w-6" />}
                   {!user && (
                     <>
-                      <Link to="/register">Daftar</Link>
                       <Link to="/login">Masuk</Link>
+                      <Link to="/register">Daftar</Link>
+                      
                     </>
                   )}
                   {user && (

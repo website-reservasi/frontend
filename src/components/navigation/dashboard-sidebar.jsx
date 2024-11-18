@@ -22,7 +22,8 @@ export default function DashboardSidebar() {
     <div className="z-50 hidden border-r-2 bg-secondary lg:fixed lg:block lg:h-screen lg:w-72">
       <div className="flex h-full max-h-screen flex-col gap-2">
         <div className="flex min-h-20 w-full items-center justify-center border-b-2 bg-white">
-          <img src="/logo.png" alt="Logo" />
+        <img src="/logo.png" alt="Logo" className="h-9 lg:h-12" />
+          {/* <img src="/logo.png" alt="Logo" /> */}
         </div>
         <div className="flex-1 overflow-y-auto">
           <nav className="grid items-start gap-4 p-6 text-sm font-medium">

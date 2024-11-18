@@ -23,10 +23,10 @@ export default function HeroSection() {
           <Link
             to="/category"
             className={buttonVariants({
-              className: "h-auto w-52 rounded-none py-3",
+              className: "h-auto w-52 rounded-md py-3",
             })}
           >
-            Lihat selengkapnya
+            <p className="text-base" >Lihat selengkapnya</p>
           </Link>
         </div>
       </div>

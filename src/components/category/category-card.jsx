@@ -14,14 +14,17 @@ export default function CategoryCard({ category }) {
             alt={category.name}
             className="object-cover md:h-52 md:w-80"
           />
-          <div className="flex w-full flex-col gap-4">
-            <p className="text-2xl font-normal">{category.name}</p>
+          <div className="flex w-full flex-col">
+            <p className="text-xl font-normal">{category.name}</p>
+            <div className="flex items-center justify-end">
             <Link
               to={`/category/${category.id}`}
-              className={cn(buttonVariants(), "font-bold")}
+              className={cn(buttonVariants({size:"sort",}),  "font-bold text-sm"  )}
+
             >
               Detail
             </Link>
+          </div>
           </div>
         </CardContent>
       </Card>

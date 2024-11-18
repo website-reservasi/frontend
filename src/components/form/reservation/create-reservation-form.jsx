@@ -3,7 +3,7 @@ import * as React from "react";
 import PropTypes from "prop-types";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { format, startOfTomorrow } from "date-fns";
+import { format, startOfDay, startOfToday, startOfTomorrow } from "date-fns";
 import { Calendar as CalendarIcon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -231,7 +231,7 @@ export default function CreateReservationForm({ categoryPackageId }) {
   };
 
   const disabledDates = {
-    before: startOfTomorrow(),
+    before: startOfToday(),
   };
 
   return (
