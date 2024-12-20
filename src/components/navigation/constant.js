@@ -35,11 +35,12 @@ const links = [
 const contacts = [
   {
     icon: WhatsAppIcon,
-    social: "0898-8500-034",
+    social: "6282326400060",
   },
   {
     icon: TiktokIcon,
     social: "Infokus_id",
+  
   },
   {
     icon: FacebookIcon,
@@ -47,10 +48,32 @@ const contacts = [
   },
   {
     icon: InstagramIcon,
-    social: "infokus.studio",
+    social: "studiofotoinfokus",
+    
   },
 ];
 
+
+const iconlinks = [
+  {
+    icon: WhatsAppIcon,
+    path: "6282326400060",
+  },
+  {
+    icon: TiktokIcon,
+    path: "Infokus_id",
+  
+  },
+  {
+    icon: FacebookIcon,
+    path: "Infokus.id",
+  },
+  {
+    icon: InstagramIcon,
+    path: "https://www.instagram.com/studiofotoinfokus/",
+    
+  },
+];
 const sidebarLinks = [
   {
     icon: CalendarRange,
@@ -94,4 +117,4 @@ const sidebarLinks = [
   },
 ];
 
-export { links, contacts, sidebarLinks };
+export { links, contacts, sidebarLinks, iconlinks };
