@@ -4,7 +4,7 @@ import { useAuth } from "@/hooks/useAuth";
 
 const AuthContext = createContext();
 
-export const useSession = () => useContext(AuthContext)
+export const useSession = () => useContext(AuthContext);
 
 export const SessionProvider = ({ children }) => {
   const auth = useAuth();
