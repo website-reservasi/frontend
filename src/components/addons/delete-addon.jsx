@@ -17,6 +17,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { addonsService } from "@/services/addons-service";
+import { Delete, Trash } from "lucide-react";
 
 export default function DeleteAddon({ addonId }) {
   const queryClient = useQueryClient();
@@ -53,9 +54,9 @@ export default function DeleteAddon({ addonId }) {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button variant="destructive" className="lg:font-bold">
-          Hapus
-        </Button>
+        <button type="button" className="bg-red-500 text-white p-2 rounded-lg hover:bg-red-500/80 ease-out duration-100">
+          <Trash size={15} />  
+        </button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>

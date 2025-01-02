@@ -3,6 +3,7 @@ import { Spinner } from "@/components/icons";
 import { categoryService } from "@/services/category-service";
 import { useQuery } from "@tanstack/react-query";
 import { ChevronRight } from "lucide-react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 export default function CategoryPage() {
@@ -15,6 +16,10 @@ export default function CategoryPage() {
     queryFn: () => categoryService.getCategories(),
     queryKey: ["categories"],
   });
+
+  useEffect(() => {
+    console.log(categories)
+  })
 
   if (isLoading) {
     return <Spinner className="size-4" />;

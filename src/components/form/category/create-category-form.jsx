@@ -34,6 +34,7 @@ export default function CreateCategoryForm() {
     resolver: zodResolver(CreateCategorySchema),
     defaultValues: {
       name: "",
+      deskripsi: "",
       images: [],
     },
   });
@@ -70,6 +71,8 @@ export default function CreateCategoryForm() {
 
   const onSubmit = async (data) => {
     setIsError("");
+
+    console.log(data)
 
     if (!data.images || data.images.length === 0) {
       setIsError("Gambar yang diunggah minimal 1 gambar");
@@ -113,6 +116,19 @@ export default function CreateCategoryForm() {
               <FormLabel htmlFor="name">Nama Kategori</FormLabel>
               <FormControl>
                 <Input placeholder="Enter category name" id="name" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="deskripsi"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel htmlFor="deskripsi">Deskripsi</FormLabel>
+              <FormControl>
+                <Input placeholder="Enter category description" id="deskripsi" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

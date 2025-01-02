@@ -37,7 +37,7 @@ export default function CategoryCarousel() {
   }
 
   return (
-    <Carousel opts={options} className="mx-auto -ml-4 w-full lg:ml-0">
+    <Carousel opts={options} className="mx-auto -ml-4 w-full lg:ml-0" showDots>
       <CarouselContent className="pb-8 lg:-ml-1 lg:mr-6">
         {categories.data.map((category) => (
           <CarouselItem key={category.id} className="basis-auto lg:pl-11">

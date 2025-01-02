@@ -65,7 +65,7 @@ export default function ReviewDetailPage() {
 
   return (
     <main className="mx-auto flex flex-col items-center justify-center">
-      <div className="mx-auto w-full max-w-xl space-y-6 px-4 py-4 lg:py-10">
+      <div className="mx-auto w-full max-w-screen-md space-y-6 px-4 py-4 lg:py-10">
         <Link
           to="/history"
           className={cn(buttonVariants(), "max-w-max font-bold")}

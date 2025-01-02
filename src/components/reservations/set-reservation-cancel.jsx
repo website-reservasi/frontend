@@ -15,6 +15,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { reservationService } from "@/services/reservation-service";
 import { toast } from "sonner";
 import { useState } from "react";
+import { Check } from "lucide-react";
+import { Cross1Icon } from "@radix-ui/react-icons";
 
 export default function SetReservationCancel({ id }) {
   const queryClient = useQueryClient();
@@ -48,7 +50,9 @@ export default function SetReservationCancel({ id }) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button>Batal</Button>
+        <button type="button" className="bg-red-500 text-white w-10 h-10 flex items-center justify-center rounded-md hover:bg-red-500/70 active:bg-red-800 active:scale-95 ease-out duration-100">
+          <Cross1Icon scale={100} />
+        </button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>

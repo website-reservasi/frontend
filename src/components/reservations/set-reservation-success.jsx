@@ -15,6 +15,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { reservationService } from "@/services/reservation-service";
 import { toast } from "sonner";
 import { useState } from "react";
+import { Check } from "lucide-react";
 
 export default function SetReservationSuccess({ id }) {
   const queryClient = useQueryClient();
@@ -48,7 +49,9 @@ export default function SetReservationSuccess({ id }) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button>Selesai</Button>
+        <button type="button" className="bg-green-500 text-white w-10 h-10 flex items-center justify-center rounded-md hover:bg-green-500/70 active:bg-green-800 active:scale-95 ease-out duration-100">
+          <Check size={20} />
+        </button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>

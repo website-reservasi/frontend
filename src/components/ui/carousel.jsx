@@ -17,99 +17,86 @@ function useCarousel() {
   return context
 }
 
-const Carousel = React.forwardRef((
-  {
-    orientation = "horizontal",
-    opts,
-    setApi,
-    plugins,
-    className,
-    children,
-    ...props
-  },
-  ref
-) => {
+const Carousel = React.forwardRef(({
+  orientation = "horizontal",
+  opts,
+  setApi,
+  plugins,
+  showDots = false,
+  className,
+  children,
+  ...props
+}, ref) => {
   const [carouselRef, api] = useEmblaCarousel({
     ...opts,
     axis: orientation === "horizontal" ? "x" : "y",
-  }, plugins)
-  const [canScrollPrev, setCanScrollPrev] = React.useState(false)
-  const [canScrollNext, setCanScrollNext] = React.useState(false)
+  }, plugins);
+
+  const [activeIndex, setActiveIndex] = React.useState(0);
+  const [totalSlides, setTotalSlides] = React.useState(0);
 
   const onSelect = React.useCallback((api) => {
-    if (!api) {
-      return
-    }
-
-    setCanScrollPrev(api.canScrollPrev())
-    setCanScrollNext(api.canScrollNext())
-  }, [])
-
-  const scrollPrev = React.useCallback(() => {
-    api?.scrollPrev()
-  }, [api])
-
-  const scrollNext = React.useCallback(() => {
-    api?.scrollNext()
-  }, [api])
-
-  const handleKeyDown = React.useCallback((event) => {
-    if (event.key === "ArrowLeft") {
-      event.preventDefault()
-      scrollPrev()
-    } else if (event.key === "ArrowRight") {
-      event.preventDefault()
-      scrollNext()
-    }
-  }, [scrollPrev, scrollNext])
+    if (!api) return;
+    setActiveIndex(api.selectedScrollSnap());
+  }, []);
 
   React.useEffect(() => {
-    if (!api || !setApi) {
-      return
-    }
+    if (!api) return;
 
-    setApi(api)
-  }, [api, setApi])
-
-  React.useEffect(() => {
-    if (!api) {
-      return
-    }
-
-    onSelect(api)
-    api.on("reInit", onSelect)
-    api.on("select", onSelect)
+    setTotalSlides(api.scrollSnapList().length);
+    onSelect(api);
+    api.on("reInit", () => setTotalSlides(api.scrollSnapList().length));
+    api.on("select", onSelect);
 
     return () => {
-      api?.off("select", onSelect)
+      api.off("select", onSelect);
     };
-  }, [api, onSelect])
+  }, [api, onSelect]);
+
+  const scrollToSlide = (index) => {
+    api?.scrollTo(index);
+  };
 
   return (
-    (<CarouselContext.Provider
+    <CarouselContext.Provider
       value={{
         carouselRef,
         api: api,
         opts,
         orientation:
           orientation || (opts?.axis === "y" ? "vertical" : "horizontal"),
-        scrollPrev,
-        scrollNext,
-        canScrollPrev,
-        canScrollNext,
-      }}>
+      }}
+    >
       <div
         ref={ref}
-        onKeyDownCapture={handleKeyDown}
         className={cn("relative", className)}
         role="region"
         aria-roledescription="carousel"
-        {...props}>
+        {...props}
+      >
         {children}
+        {showDots && (
+          <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+            {Array.from({ length: totalSlides }).map((_, index) => (
+              <button
+                key={index}
+                onClick={() => scrollToSlide(index)}
+                className={cn(
+                  "h-4 w-4 rounded-full",
+                  index === activeIndex
+                    ? "bg-primary"
+                    : "bg-gray-200 hover:bg-gray-400 scale-75 hover:scale-100 ease-out duration-100"
+                )}
+                aria-label={`Go to slide ${index + 1}`}
+              />
+            ))}
+          </div>
+        )}
       </div>
-    </CarouselContext.Provider>)
+    </CarouselContext.Provider>
   );
-})
+});
+
 Carousel.displayName = "Carousel"
 
 const CarouselContent = React.forwardRef(({ className, ...props }, ref) => {

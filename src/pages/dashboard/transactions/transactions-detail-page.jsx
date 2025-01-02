@@ -33,6 +33,8 @@ import { useState } from "react";
 import { Alert, AlertTitle } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
 import { DialogClose } from "@radix-ui/react-dialog";
+import { Check, Cross } from "lucide-react";
+import { Cross1Icon } from "@radix-ui/react-icons";
 
 export default function TransactionsDetailPage() {
   const { transactionId } = useParams();
@@ -151,7 +153,7 @@ export default function TransactionsDetailPage() {
   };
 
   const trxType =
-    transaction.data.type === "fullpayment" ? "Pembayaran Lunas" : "DP 50%";
+    transaction.data.type === "fullpayment" ? "Lunas" : "DP 50%";
   const fullPayment = transaction.data.type === "fullpayment";
   const dpPayment = transaction.data.type === "downpayment";
   return (
@@ -263,7 +265,7 @@ export default function TransactionsDetailPage() {
           <TableHeader>
             <TableRow>
               <TableHead>Total</TableHead>
-              <TableHead className="text-center lg:text-left">Status</TableHead>
+              <TableHead className="text-center lg:text-left">Status Verifikasi</TableHead>
               <TableHead>Bukti</TableHead>
               <TableHead>Tanggal</TableHead>
               <TableHead className="text-center">Aksi</TableHead>
@@ -276,7 +278,7 @@ export default function TransactionsDetailPage() {
                   ? "Valid"
                   : detail.isValid === "false"
                     ? "Tidak Valid"
-                    : "Menunggu Validasi";
+                    : "Menunggu";
 
               const valid = detail.isValid === "true";
               const inValid = detail.isValid === "false";
@@ -326,7 +328,9 @@ export default function TransactionsDetailPage() {
                             }
                           >
                             <DialogTrigger asChild>
-                              <Button size="sm">Valid</Button>
+                              <Button size="sm" className="bg-green-500 hover:bg-green-400 text-white">
+                                <Check size={20} />
+                              </Button>
                             </DialogTrigger>
                             <DialogContent>
                               <DialogHeader>
@@ -360,7 +364,7 @@ export default function TransactionsDetailPage() {
                           >
                             <DialogTrigger asChild>
                               <Button variant="destructive" size="sm">
-                                Tidak Valid
+                                <Cross1Icon />
                               </Button>
                             </DialogTrigger>
                             <DialogContent>

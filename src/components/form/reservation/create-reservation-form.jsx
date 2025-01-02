@@ -7,6 +7,7 @@ import { format, startOfToday} from "date-fns";
 import { Calendar as CalendarIcon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { id } from "date-fns/locale";
 
 import { cn, rupiahFormat, timeFormat } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -138,8 +139,18 @@ export default function CreateReservationForm({ categoryPackageId }) {
   };
 
   const isTimeSlotDisabled = (timeSlot) => {
-    const [hours, minutes] = timeSlot.time.split(":").map(Number);
+    const [hours, minutes] = `${timeSlot.time}`.split('T')[1].split(':')
+
+    if(!selectedDate) {
+      return true
+    }
+
     const slotTime = new Date(currentDate);
+
+    if(slotTime < new Date(selectedDate)) {
+      return false
+    }
+
     slotTime.setHours(hours, minutes, 0, 0);
 
     if (slotTime < currentDate) {
@@ -213,6 +224,8 @@ export default function CreateReservationForm({ categoryPackageId }) {
       addons: filteredAddons,
     };
 
+    console.log(submissionData)
+
     setErrorMsg("");
     setIsSubmit(true);
     try {
@@ -285,7 +298,7 @@ export default function CreateReservationForm({ categoryPackageId }) {
                               >
                                 <CalendarIcon className="mr-2 h-4 w-4" />
                                 {field.value ? (
-                                  format(new Date(field.value), "PPP")
+                                  format(new Date(field.value), "eeee, dd MMMM yyyy", { locale: id })
                                 ) : (
                                   <span>Pilih tanggal</span>
                                 )}
@@ -343,7 +356,7 @@ export default function CreateReservationForm({ categoryPackageId }) {
                                     className={cn(
                                       "w-full",
                                       isDisabled &&
-                                        "cursor-not-allowed !border-gray-400/60 !bg-gray-400/60 !text-black !opacity-100",
+                                        "cursor-not-allowed !border-gray-400/60 !bg-gray-300/50 !text-black/50 !opacity-100",
                                     )}
                                   >
                                     <Label htmlFor={`time-${time.id}`}>
@@ -450,100 +463,102 @@ export default function CreateReservationForm({ categoryPackageId }) {
                   </AlertDescription>
                 </Alert>
               ) : (
-                <div className="flex flex-col gap-4">
-                  <Card>
-                    <CardHeader>
-                      <CardTitle>{pack.data.category.name}</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="flex w-full flex-row justify-between">
-                        <p>{pack.data.name}</p>
-                        <p>{rupiahFormat(pack.data.price)}</p>
-                      </div>
-                      {form.watch("addons")?.map((addon, index) => {
-                        if (
-                          addon.id !== undefined &&
-                          addon.quantity !== undefined
-                        ) {
-                          const addonData = addons.data.find(
-                            (a) => a.id === addon.id,
-                          );
-                          return (
-                            <div
-                              key={index}
-                              className="mt-2 flex w-full flex-row justify-between"
-                            >
-                              <p>
-                                {addonData.name} x{addon.quantity}
-                              </p>
-                              <p>
-                                {rupiahFormat(addonData.price * addon.quantity)}
-                              </p>
-                            </div>
-                          );
-                        }
-                        return null;
-                      })}
-                    </CardContent>
-                    <CardFooter className="flex flex-col items-end gap-6 border-t pt-6">
-                      <div className="flex w-full flex-row justify-between">
-                        <p>Total</p>
-                        <p>{rupiahFormat(calculateTotalPrice())}</p>
-                      </div>
-                    </CardFooter>
-                  </Card>
-                  <Card>
-                    <CardHeader>
-                      <CardTitle>Metode Pelunasan</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <FormField
-                        control={form.control}
-                        name="type"
-                        render={({ field }) => (
-                          <FormItem>
-                            <ButtonRadio
-                              onValueChange={field.onChange}
-                              value={field.value}
-                              className="flex flex-col space-y-1"
-                            >
-                              <FormItem className="flex items-center space-x-3 space-y-0">
-                                <FormControl>
-                                  <ButtonRadioItem
-                                    value="fullpayment"
-                                    className="w-full"
-                                  >
-                                    Pembayaran Lunas
-                                  </ButtonRadioItem>
-                                </FormControl>
-                              </FormItem>
-                              <FormItem className="flex items-center space-x-3 space-y-0">
-                                <FormControl>
-                                  <ButtonRadioItem
-                                    value="downpayment"
-                                    className="w-full"
-                                  >
-                                    DP 50%
-                                  </ButtonRadioItem>
-                                </FormControl>
-                              </FormItem>
-                            </ButtonRadio>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                    </CardContent>
-                    <CardFooter className="border-t pt-6">
-                      <Button
-                        className="w-full font-bold"
-                        type="submit"
-                        onClick={form.handleSubmit(onSubmit)}
-                        isLoading={isSubmit}
-                      >
-                        Reservasi
-                      </Button>
-                    </CardFooter>
-                  </Card>
+                <div className="flex items-center justify-end">
+                  <div className="flex flex-col gap-4 max-w-md w-full">
+                    <Card>
+                      <CardHeader>
+                        <CardTitle>{pack.data.category.name}</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="flex w-full flex-row justify-between">
+                          <p>{pack.data.name}</p>
+                          <p>{rupiahFormat(pack.data.price)}</p>
+                        </div>
+                        {form.watch("addons")?.map((addon, index) => {
+                          if (
+                            addon.id !== undefined &&
+                            addon.quantity !== undefined
+                          ) {
+                            const addonData = addons.data.find(
+                              (a) => a.id === addon.id,
+                            );
+                            return (
+                              <div
+                                key={index}
+                                className="mt-2 flex w-full flex-row justify-between"
+                              >
+                                <p>
+                                  {addonData.name} x{addon.quantity}
+                                </p>
+                                <p>
+                                  {rupiahFormat(addonData.price * addon.quantity)}
+                                </p>
+                              </div>
+                            );
+                          }
+                          return null;
+                        })}
+                      </CardContent>
+                      <CardFooter className="flex flex-col items-end gap-6 border-t pt-6">
+                        <div className="flex w-full flex-row justify-between font-semibold">
+                          <p>Total</p>
+                          <p>{rupiahFormat(calculateTotalPrice())}</p>
+                        </div>
+                      </CardFooter>
+                    </Card>
+                    <Card>
+                      <CardHeader>
+                        <CardTitle>Metode Pelunasan</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <FormField
+                          control={form.control}
+                          name="type"
+                          
+                          render={({ field }) => (
+                            <FormItem >
+                              <ButtonRadio
+                                onValueChange={field.onChange}
+                                value={field.value}
+                                className="flex items-center gap-5"
+                              >
+                                <FormItem className="flex items-center space-x-3 space-y-0 w-1/2">
+                                  <FormControl>
+                                    <ButtonRadioItem
+                                      value="fullpayment"
+                                      className="w-full font-normal"
+                                    >
+                                      Lunas
+                                    </ButtonRadioItem>
+                                  </FormControl>
+                                </FormItem>
+                                <FormItem className="flex items-center space-x-3 space-y-0 w-1/2">
+                                  <FormControl>
+                                    <ButtonRadioItem
+                                      value="downpayment"
+                                      className="w-full font-normal"
+                                    >
+                                      DP 50%
+                                    </ButtonRadioItem>
+                                  </FormControl>
+                                </FormItem>
+                              </ButtonRadio>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        <hr className="my-2 opacity-0" />
+                        <Button
+                          className="w-full font-normal"
+                          type="submit"
+                          onClick={form.handleSubmit(onSubmit)}
+                          isLoading={isSubmit}
+                        >
+                          Reservasi
+                        </Button>
+                      </CardContent>
+                    </Card>
+                  </div>
                 </div>
               )}
             </div>

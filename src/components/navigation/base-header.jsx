@@ -34,14 +34,20 @@ import {
 import { PanelRight } from "lucide-react";
 import { UserCircle2 } from "lucide-react";
 
-export default function Header() {
+export default function Header({
+  auth_section = true,
+  icon_only = false,
+  icon_position = 'center'
+}) {
   const location = useLocation();
   const { user, isLoading } = useSession();
   return (
     <header className="sticky top-0 z-40 w-full bg-white">
       <div className="mx-auto h-16 w-full max-w-[1440px] px-4 font-medium lg:h-20 lg:px-20">
         <nav className="inline-flex h-full w-full items-center justify-between">
-          <img src="/logo.png" alt="Logo" className="h-9 lg:h-12" />
+          <Link to={'/'}>
+            <img src="/logo.png" alt="Logo" className="h-9 lg:h-12" />
+          </Link>
           {/* <p className="text-3xl h-3 lg:h-10">Infokus</p> */}
           <ul className="hidden gap-11 lg:inline-flex">
             {links.map((link, index) => {
@@ -66,39 +72,41 @@ export default function Header() {
               );
             })}
           </ul>
-          <div className="hidden items-center gap-5 lg:inline-flex">
-            {isLoading && <Spinner className="h-6 w-6" />}
-            {!user && (
-              <>
-               <Link
-                  to="/login"
-                  className={cn(
-                    buttonVariants({
-                      variant:"line",
-                      size: "lg",
-                    }),
-                    "font-bold",
-                  )}
-                >
-                  Masuk
-                </Link>
-                
+          {auth_section && (
+            <div className="hidden items-center gap-5 lg:inline-flex">
+              {isLoading && <Spinner className="h-6 w-6" />}
+              {!user && (
+                <>
                 <Link
-                  to="/register"
-                  className={cn(
-                    buttonVariants({
-                      size: "lg",
-                    }),
-                    "font-bold",
-                  )}
-                >
-                  Daftar
-                </Link>
-               
-              </>
-            )}
-            {user && <ProfileMenu />}
-          </div>
+                    to="/login"
+                    className={cn(
+                      buttonVariants({
+                        variant:"line",
+                        size: "lg",
+                      }),
+                      "font-bold",
+                    )}
+                  >
+                    Masuk
+                  </Link>
+                  
+                  <Link
+                    to="/register"
+                    className={cn(
+                      buttonVariants({
+                        size: "lg",
+                      }),
+                      "font-bold",
+                    )}
+                  >
+                    Daftar
+                  </Link>
+                
+                </>
+              )}
+              {user && <ProfileMenu />}
+            </div>
+          )}
           <Sheet>
             <SheetTrigger asChild>
               <Button size="icon" variant="ghost" className="flex lg:hidden">
@@ -138,12 +146,16 @@ export default function Header() {
                   })}
                 </ul>
                 <div className="flex flex-col gap-2">
-                  {isLoading && <Spinner className="h-6 w-6" />}
-                  {!user && (
+                  {auth_section && (
                     <>
-                      <Link to="/login">Masuk</Link>
-                      <Link to="/register">Daftar</Link>
-                      
+                      {isLoading && <Spinner className="h-6 w-6" />}
+                      {!user && (
+                        <>
+                          <Link to="/login">Masuk</Link>
+                          <Link to="/register">Daftar</Link>
+                          
+                        </>
+                      )}
                     </>
                   )}
                   {user && (
@@ -218,7 +230,7 @@ function ProfileMenu() {
         </AlertDialogHeader>
         <AlertDialogFooter className="flex flex-row items-center justify-center sm:justify-center">
           <AlertDialogCancel>Batal</AlertDialogCancel>
-          <AlertDialogAction onClick={logout} variant="destructive">
+          <AlertDialogAction onClick={logout} className={`bg-primary hover:bg-primary/80`}>
             Keluar
           </AlertDialogAction>
         </AlertDialogFooter>
@@ -246,7 +258,7 @@ function MobileLogout() {
         </AlertDialogHeader>
         <AlertDialogFooter className="flex flex-row items-center justify-center gap-2">
           <AlertDialogCancel className="m-0">Batal</AlertDialogCancel>
-          <AlertDialogAction onClick={logout} variant="destructive">
+          <AlertDialogAction onClick={logout} className={`bg-primary hover:bg-primary/80`}>
             Keluar
           </AlertDialogAction>
         </AlertDialogFooter>

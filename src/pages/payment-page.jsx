@@ -112,7 +112,7 @@ export default function PaymentPage() {
               >
                 <AlertDescription className="font-medium">
                   Batas pembayaran :{" "}
-                  {dateTimeFormat(transaction.data.expiredAt)}
+                  {dateFormat(reservation.data.date)} pukul {timeFormat(reservation.data.timeSlot.time)}
                 </AlertDescription>
               </Alert>
             )}
@@ -212,9 +212,11 @@ export default function PaymentPage() {
               <CardContent className="space-y-4 border-y p-4">
                 <img src="/qris-example.jpg" alt="qris"></img>
               </CardContent>
-              <CardFooter className="flex justify-between">
-                <PaymentForm />
-              </CardFooter>
+              {transaction.data.transaction_detail.some(item => item.isValid !== null || item.isValid === false) && (
+                <CardFooter className="flex justify-between">
+                  <PaymentForm />
+                </CardFooter>
+              )}
             </>
           )}
         </Card>
@@ -229,7 +231,7 @@ export default function PaymentPage() {
                       ? "Valid"
                       : detail.isValid === "false"
                         ? "Tidak Valid"
-                        : "Menunggu Validasi";
+                        : "Sedang diproses";
 
                   const valid = detail.isValid === "true";
                   const inValid = detail.isValid === "false";
