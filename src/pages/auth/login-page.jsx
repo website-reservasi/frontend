@@ -15,11 +15,16 @@ export default function LoginPage() {
 
   return (
     <main className="flex min-h-dvh w-full flex-col items-center justify-center gap-4 p-4 lg:p-0">
-      <Header auth_section={false} />
+      {/* <Header auth_section={false} /> */}
+      <div className="flex items-center justify-center w-full mb-5">
+        <Link to={'/'}>
+          <img src="/logo.png" alt="Logo" className="h-12 lg:h-20" />
+        </Link>
+      </div>
       <LoginForm />
-      <Link to="/" className={cn(buttonVariants({ variant: "link" }))}>
+      {/* <Link to="/" className={cn(buttonVariants({ variant: "link" }))}>
         Kembali
-      </Link>
+      </Link> */}
     </main>
   );
 }

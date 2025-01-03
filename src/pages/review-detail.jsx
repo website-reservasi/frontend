@@ -18,6 +18,7 @@ import { cn, dateFormat, rupiahFormat, timeFormat } from "@/lib/utils";
 import { Separator } from "@/components/ui/separator";
 import { Link } from "react-router-dom";
 import { buttonVariants } from "@/components/ui/button";
+import { useEffect } from "react";
 
 export default function ReviewDetailPage() {
   const { reservationId } = useParams();
@@ -32,7 +33,6 @@ export default function ReviewDetailPage() {
     queryFn: () => reservationService.getReservation(reservationId),
     queryKey: ["reservation", reservationId],
   });
-
   const {
     data: review,
     isLoading: isReviewLoading,
@@ -90,11 +90,13 @@ export default function ReviewDetailPage() {
                 </div>
               </div>
               <div className="flex w-full flex-row justify-end">
-                <img
-                  src={reservation.data.category.images[0].imageUrl}
-                  alt="Category"
-                  className="w-48"
-                />
+                {reservation.data.category.images[0]?.imageUrl && 
+                  <img
+                    src={reservation.data.category.images[0].imageUrl}
+                    alt="Category"
+                    className="w-48"
+                  />
+                }
               </div>
             </div>
 

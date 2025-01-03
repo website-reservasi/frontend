@@ -251,7 +251,7 @@ export default function ReservationsTable() {
             <TableHead className="text-center">Kategori</TableHead>
             <TableHead className="text-center">Paket</TableHead>
             <TableHead className="w-32 text-center">Status</TableHead>
-            <TableHead className="w-64 text-center">Aksi</TableHead>
+            <TableHead className="w-48 text-center">Aksi</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -287,7 +287,7 @@ export default function ReservationsTable() {
                     {reservation.categoryPackage.name}
                   </TableCell>
                   <TableCell className="text-center">
-                    <div className="w-full flex justify-center items-center">
+                    <div className="flex justify-center items-center">
                       <div
                         className={cn(
                           "bg-yellow-500 px-2 py-1 rounded-full text-white text-sm w-fit",
@@ -299,24 +299,26 @@ export default function ReservationsTable() {
                       </div>
                     </div>
                   </TableCell>
-                  <TableCell className="flex flex-wrap items-center justify-center gap-2 text-center">
-                    {reservation.status === "pending" ? (
-                      <div className="inline-flex gap-2">
-                        <SetReservationCancel id={reservation.id} />
-                        {reservation.transactions.status === "paid" && (
-                          <SetReservationSuccess id={reservation.id} />
-                        )}
-                      </div>
-                    ) : null}
-                    {reservation.status === "success" && (
-                      <Link
-                        to={`/dashboard/reservations/${reservation.id}/detail`}
-                        className={`bg-primary p-2 flex items-center justify-center text-white rounded-lg hover:bg-primary/70 ease-out duration-100`}
-                      >
-                        <Info />
-                      </Link>
-                      
-                    )}
+                  <TableCell className=" text-center">
+                    <div className="flex flex-wrap items-center justify-center gap-2">
+                      {reservation.status === "pending" ? (
+                        <div className="inline-flex gap-2">
+                          <SetReservationCancel id={reservation.id} />
+                          {reservation.transactions.status === "paid" && (
+                            <SetReservationSuccess id={reservation.id} />
+                          )}
+                        </div>
+                      ) : null}
+                      {reservation.status === "success" && (
+                        <Link
+                          to={`/dashboard/reservations/${reservation.id}/detail`}
+                          className={`bg-primary p-2 flex items-center justify-center text-white rounded-lg hover:bg-primary/70 ease-out duration-100`}
+                        >
+                          <Info />
+                        </Link>
+                        
+                      )}
+                    </div>
                   </TableCell>
                 </TableRow>
               );

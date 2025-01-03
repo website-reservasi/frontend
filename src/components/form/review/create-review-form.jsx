@@ -2,7 +2,7 @@ import { Star } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CreateReviewSchema } from "@/schema/review-schema";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import {
   Card,
   CardContent,
@@ -135,9 +135,17 @@ export default function CreateReviewForm() {
             />
           </CardContent>
           <CardFooter>
-            <Button type="submit" className="w-full" isLoading={isProcessing}>
-              Kirim
-            </Button>
+            <div className="grid grid-cols-2 gap-5 w-full">
+              <Link
+                to="/history"
+                className={` flex items-center justify-center border-2 border-primary rounded-md text-primary hover:bg-primary/30 ease-out duration-100`}
+              >
+                Kembali
+              </Link>
+              <Button type="submit" className="w-full" isLoading={isProcessing}>
+                Kirim
+              </Button>
+            </div>
           </CardFooter>
         </form>
       </Form>
