@@ -12,16 +12,17 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 
 import { imageService } from "@/services/image-service";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { z } from "zod";
 import { transactionService } from "@/services/transaction-service";
 import { useParams } from "react-router-dom";
+import { cn } from "@/lib/utils";
 
 const PaymentSchema = z.object({
   images: z.any(),
@@ -91,7 +92,7 @@ export default function PaymentForm() {
     try {
       const images = await uploadMutation.mutateAsync(formData);
 
-      data.image = images.data[0];
+      data.image = images.data[0].publicUrl;
       await payMutation.mutateAsync(data);
     } catch (error) {
       console.error("Create category error:", error);
@@ -123,9 +124,18 @@ export default function PaymentForm() {
             </FormItem>
           )}
         />
-        <Button isLoading={isSubmit} type="submit" className="w-full font-bold">
-          Kirim Bukti Pembayaran
-        </Button>
+        <div className="grid grid-cols-2 gap-5">
+          <Link
+            to="/history"
+            className={` flex items-center justify-center w-full  rounded-md border-2 border-primary text-primary hover:bg-primary/30 ease-out duration-100`}
+          >
+            Kembali
+          </Link>
+          <Button isLoading={isSubmit} type="submit" className="w-full font-bold">
+            Kirim Bukti Pembayaran
+          </Button>
+
+        </div>
       </form>
     </Form>
   );

@@ -50,16 +50,16 @@ export default function ReservationDetailPage() {
       <div className="flex flex-col gap-2 lg:w-3/4">
         <div className="grid grid-cols-2">
           <p>Status</p>
-          <Badge
+          <div
             className={cn(
-              "bg-yellow-500",
-              isSuccess && "bg-green-500",
-              isCancelled && "bg-red-500",
+              "bg-yellow-500 px-2 py-1 rounded-full text-white text-sm w-fit",
+              isSuccess && "bg-green-500 px-2 py-1 rounded-full text-white text-sm w-fit",
+              isCancelled && "bg-red-500 px-2 py-1 rounded-full text-white text-sm w-fit",
               "max-w-max",
             )}
           >
             {rsrvStatus}
-          </Badge>
+          </div>
         </div>
         <div className="mt-4 grid grid-cols-2">
           <p>ID Reservasi</p>

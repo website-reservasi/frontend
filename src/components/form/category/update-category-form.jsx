@@ -46,6 +46,7 @@ export default function UpdateCategoryForm({ categoryId }) {
     resolver: zodResolver(UpdateCategorySchema),
     defaultValues: {
       name: "",
+      deskripsi: "",
       images_url: [],
       images: [],
     },
@@ -55,6 +56,7 @@ export default function UpdateCategoryForm({ categoryId }) {
     if (category) {
       form.reset({
         name: category.data.name,
+        deskripsi: category.data.deskripsi,
         images_url: category.data.images,
       });
       setCategoryImages(category.data.images);
@@ -85,6 +87,7 @@ export default function UpdateCategoryForm({ categoryId }) {
       navigate("/dashboard/categories");
     },
     onError: (error) => {
+      console.log('test')
       setIsError(error.message);
       setIsSubmit(false);
       console.error("Update category error:", error);
@@ -93,7 +96,6 @@ export default function UpdateCategoryForm({ categoryId }) {
 
   const onSubmit = async (data) => {
     setIsError("");
-
     const newImages = data.images.length;
     const existringImages = categoryImages.length;
 
@@ -122,8 +124,18 @@ export default function UpdateCategoryForm({ categoryId }) {
       if (newImages > 0) {
         const newImages = await uploadMutation.mutateAsync(formData);
         data.images = [...categoryImages, ...newImages.data];
+        const payload = {
+          ...data,
+          images: data.images.map(v => {
+            if(typeof(v) === 'object') {
+              return v['publicUrl']
+            }else{
+              return v
+            }
+          })
+        }
 
-        await updateCategoryMutation.mutateAsync(data);
+        await updateCategoryMutation.mutateAsync(payload);
         setIsSubmit(false);
         return;
       }
@@ -135,6 +147,11 @@ export default function UpdateCategoryForm({ categoryId }) {
       console.error("Update category error:", error.message);
     }
   };
+
+  const submit = async (e) => {
+    e.preventDefault()
+    console.log('test')
+  }
 
   if (isLoading) return <Loading />;
   if (error) return <div>Error: {error.message}</div>;
@@ -155,6 +172,19 @@ export default function UpdateCategoryForm({ categoryId }) {
               <FormLabel htmlFor="name">Nama Kategori</FormLabel>
               <FormControl>
                 <Input placeholder="Enter category name" id="name" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="deskripsi"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel htmlFor="deskripsi">Deskripsi</FormLabel>
+              <FormControl>
+                <Input placeholder="Enter category description" id="deskripsi" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

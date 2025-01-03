@@ -75,7 +75,7 @@ export default function HistoryTable() {
               ? "Selesai"
               : reservation.status === "cancelled"
                 ? "Dibatalkan"
-                : "Pending";
+                : "Sedang diproses";
 
           const isCancelled = rsrvStatus === "Dibatalkan";
           const isSuccess = rsrvStatus === "Selesai";
@@ -85,16 +85,17 @@ export default function HistoryTable() {
                 {dateFormat(reservation.date)}
               </TableCell>
               <TableCell className="text-center">{reservation.id}</TableCell>
-              <TableCell className="text-center capitalize">
-                <Badge
+              <TableCell className="text-center capitalize flex justify-center items-center">
+                <div
                   className={cn(
-                    "bg-yellow-500",
-                    isSuccess && "bg-green-500",
-                    isCancelled && "bg-red-500",
+                    "bg-yellow-500 px-2 py-1 ",
+                    isSuccess && "bg-green-500 px-2 py-1 ",
+                    isCancelled && "bg-red-500 px-2 py-1 ",
+                    "rounded-full text-white text-sm w-fit"
                   )}
                 >
                   {rsrvStatus}
-                </Badge>
+                </div>
               </TableCell>
               <TableCell className="text-center">
                 {timeFormat(reservation.timeSlot.time)}

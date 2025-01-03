@@ -172,7 +172,7 @@ export default function TransactionsDetailPage() {
             className={cn(
               fullPayment && "bg-sky-500",
               dpPayment && "bg-teal-500",
-              "max-w-max",
+              "max-w-max px-2 py-1 rounded-full text-white text-sm w-fit",
             )}
           >
             {trxType}
@@ -291,7 +291,7 @@ export default function TransactionsDetailPage() {
                         "bg-sky-600",
                         valid && "bg-green-500",
                         inValid && "bg-destructive",
-                        "text-center lg:text-left",
+                        "text-center lg:text-left px-2 py-1 rounded-full text-white text-sm w-fit",
                       )}
                     >
                       {status}

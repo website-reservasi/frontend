@@ -287,15 +287,17 @@ export default function ReservationsTable() {
                     {reservation.categoryPackage.name}
                   </TableCell>
                   <TableCell className="text-center">
-                    <Badge
-                      className={cn(
-                        "bg-yellow-500",
-                        isSuccess && "bg-green-500",
-                        isCancelled && "bg-red-500",
-                      )}
-                    >
-                      {rsrvStatus}
-                    </Badge>
+                    <div className="w-full flex justify-center items-center">
+                      <div
+                        className={cn(
+                          "bg-yellow-500 px-2 py-1 rounded-full text-white text-sm w-fit",
+                          isSuccess && "bg-green-500 px-2 py-1 rounded-full text-white text-sm w-fit",
+                          isCancelled && "bg-red-500 px-2 py-1 rounded-full text-white text-sm w-fit",
+                        )}
+                      >
+                        {rsrvStatus}
+                      </div>
+                    </div>
                   </TableCell>
                   <TableCell className="flex flex-wrap items-center justify-center gap-2 text-center">
                     {reservation.status === "pending" ? (

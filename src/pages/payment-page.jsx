@@ -107,10 +107,10 @@ export default function PaymentPage() {
             <CardTitle>{reservation.data.category.name}</CardTitle>
             {transaction.data.expiredAt && (
               <Alert
-                variant="destructive"
-                className="border-2 border-destructive bg-destructive-foreground"
+                variant="primary"
+                className="border-2 border-primary bg-primary-foreground"
               >
-                <AlertDescription className="font-medium">
+                <AlertDescription className="font-medium text-primary text-center">
                   Batas pembayaran :{" "}
                   {dateFormat(reservation.data.date)} pukul {timeFormat(reservation.data.timeSlot.time)}
                 </AlertDescription>
@@ -171,7 +171,7 @@ export default function PaymentPage() {
                 <p>Metode Pelunasan</p>
                 <p>
                   {transaction.data.type === "fullpayment"
-                    ? "Pembayaran Lunas"
+                    ? "Lunas"
                     : "DP 50%"}
                 </p>
               </div>
@@ -212,11 +212,23 @@ export default function PaymentPage() {
               <CardContent className="space-y-4 border-y p-4">
                 <img src="/qris-example.jpg" alt="qris"></img>
               </CardContent>
-              {transaction.data.transaction_detail.some(item => item.isValid !== null || item.isValid === false) && (
-                <CardFooter className="flex justify-between">
+              <CardFooter className="flex justify-between">
+              {transaction.data.transaction_detail.length > 0 &&
+                transaction.data.transaction_detail.some(v => v['isValid'] === false || v['isValid'] === null) ? (
+                  <Alert
+                    variant="primary"
+                    className="border-2 border-primary bg-primary-foreground mt-6"
+                  >
+                    <AlertDescription className="font-medium text-primary text-center">
+                      Batas pembayaran :{" "}
+                      {dateFormat(reservation.data.date)} pukul {timeFormat(reservation.data.timeSlot.time)}
+                    </AlertDescription>
+                  </Alert>
+                ) : (
                   <PaymentForm />
-                </CardFooter>
-              )}
+                )}
+
+              </CardFooter>
             </>
           )}
         </Card>
@@ -246,6 +258,7 @@ export default function PaymentPage() {
                             "bg-sky-600",
                             valid && "bg-green-500",
                             inValid && "bg-destructive",
+                            "px-2 py-1 text-md"
                           )}
                         >
                           {status}

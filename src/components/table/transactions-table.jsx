@@ -306,27 +306,31 @@ export default function TransactionsTable() {
                 </TableCell>
                 <TableCell>{trx.reservation.user.name}</TableCell>
                 <TableCell className="text-center lg:text-left">
-                  <Badge
-                    className={cn(
-                      fullPayment && "bg-sky-500",
-                      dpPayment && "bg-teal-500",
-                      "text-center lg:text-left",
-                    )}
-                  >
-                    {trxType}
-                  </Badge>
+                  <div className="flex items-center">
+                    <div
+                      className={cn(
+                        fullPayment && "bg-sky-500 px-2 py-1 rounded-full text-white text-sm w-fit",
+                        dpPayment && "bg-teal-500 px-2 py-1 rounded-full text-white text-sm w-fit",
+                        "text-center lg:text-left px-2 py-1 rounded-full text-white text-sm w-fit",
+                      )}
+                    >
+                      {trxType}
+                    </div>
+                  </div>
                 </TableCell>
                 <TableCell className="text-center lg:text-left">
-                  <Badge
-                    className={cn(
-                      "bg-yellow-500",
-                      isPaid && "bg-green-500",
-                      isExpired && "bg-red-500",
-                      "text-center lg:text-left",
-                    )}
-                  >
-                    {trxStatus}
-                  </Badge>
+                  <div className="flex items-center">
+                    <div
+                      className={cn(
+                        "bg-yellow-500 px-2 py-1 rounded-full text-white text-sm w-fit",
+                        isPaid && "bg-green-500 px-2 py-1 rounded-full text-white text-sm w-fit",
+                        isExpired && "bg-red-500 px-2 py-1 rounded-full text-white text-sm w-fit",
+                        "text-center lg:text-left",
+                      )}
+                    >
+                      {trxStatus}
+                    </div>
+                  </div>
                 </TableCell>
                 <TableCell>{rupiahFormat(trx.total)}</TableCell>
                 <TableCell className="hidden lg:table-cell">

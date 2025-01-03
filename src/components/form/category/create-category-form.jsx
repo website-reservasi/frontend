@@ -72,8 +72,6 @@ export default function CreateCategoryForm() {
   const onSubmit = async (data) => {
     setIsError("");
 
-    console.log(data)
-
     if (!data.images || data.images.length === 0) {
       setIsError("Gambar yang diunggah minimal 1 gambar");
       return;
@@ -92,7 +90,12 @@ export default function CreateCategoryForm() {
 
       data.images = images.data;
 
-      await createCategoryMutation.mutateAsync(data);
+      
+
+      await createCategoryMutation.mutateAsync({
+        ...data,
+        images: data.images.map(v => v['publicUrl'])
+      });
     } catch (error) {
       console.error("Create category error:", error);
     } finally {
