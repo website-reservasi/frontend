@@ -342,7 +342,7 @@ export default function TransactionsTable() {
                 <TableCell className="text-center">
                   <Link
                     to={`/dashboard/transactions/${trx.id}/detail`}
-                    className={`bg-primary p-2 flex items-center justify-center text-white rounded-lg hover:bg-primary/70 ease-out duration-100`}
+                    className={`bg-primary w-9 h-9 flex items-center justify-center text-white rounded-sm hover:bg-primary/70 ease-out duration-100`}
                   >
                     <Info size={20} />
                   </Link>

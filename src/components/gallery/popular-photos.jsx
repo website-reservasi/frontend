@@ -4,7 +4,7 @@ export default function PopularPhotos() {
       <h2 className="text-center text-xl font-medium lg:text-2xl">
         Foto Populer
       </h2>
-      <div className="flex w-full flex-wrap items-center justify-center">
+      <div className="grid grid-cols-2 sm:grid-cols-4">
         <img
           src="/gallery/popular/1.png"
           alt="Foto Populer"

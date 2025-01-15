@@ -50,8 +50,8 @@ export default function SetReservationCancel({ id }) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <button type="button" className="bg-red-500 text-white w-10 h-10 flex items-center justify-center rounded-md hover:bg-red-500/70 active:bg-red-800 active:scale-95 ease-out duration-100">
-          <Cross1Icon scale={100} />
+        <button type="button" className="bg-red-500 text-white w-9 h-9 flex items-center justify-center rounded-sm hover:bg-red-500/70 active:bg-red-800 active:scale-95 ease-out duration-100">
+          <Cross1Icon style={{ width: 20, height: 20 }} />
         </button>
       </DialogTrigger>
       <DialogContent>

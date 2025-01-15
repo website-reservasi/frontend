@@ -289,14 +289,17 @@ export default function CategoriesTable() {
                   className="mx-auto h-32 w-48 object-cover"
                 />
               </TableCell>
-              <TableCell className="flex flex-wrap items-center justify-center gap-2 text-center">
-                <Link
-                  to={`/dashboard/categories/${category.id}`}
-                  className={`bg-primary p-2 flex items-center justify-center text-white rounded-lg hover:bg-primary/70 ease-out duration-100`}
-                >
-                  <Pencil2Icon />
-                </Link>
-                <DeleteCategory categoryId={category.id} />
+              <TableCell className="">
+                <div className="flex items-center justify-center gap-2 text-center">
+                  <Link
+                    to={`/dashboard/categories/${category.id}`}
+                    className={`bg-primary w-9 h-9 flex items-center justify-center text-white rounded-sm hover:bg-primary/70 ease-out duration-100`}
+                  >
+                    <Pencil2Icon width={20} height={20} />
+                  </Link>
+                  <DeleteCategory categoryId={category.id} />
+
+                </div>
               </TableCell>
             </TableRow>
           ))}

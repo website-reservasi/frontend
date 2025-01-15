@@ -49,7 +49,7 @@ export default function SetReservationSuccess({ id }) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <button type="button" className="bg-green-500 text-white w-10 h-10 flex items-center justify-center rounded-md hover:bg-green-500/70 active:bg-green-800 active:scale-95 ease-out duration-100">
+        <button type="button" className="bg-green-500 text-white w-9 h-9 flex items-center justify-center rounded-sm hover:bg-green-500/70 active:bg-green-800 active:scale-95 ease-out duration-100">
           <Check size={20} />
         </button>
       </DialogTrigger>

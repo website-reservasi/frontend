@@ -54,8 +54,8 @@ export default function DeleteCategory({ categoryId }) {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <button type="button" className="bg-red-500 text-white p-2 rounded-lg hover:bg-red-500/80 ease-out duration-100">
-          <Trash size={15} />  
+        <button type="button" className="bg-red-500 text-white w-9 h-9 flex items-center justify-center rounded-sm hover:bg-red-500/80 ease-out duration-100">
+          <Trash size={20} />  
         </button>
       </DialogTrigger>
       <DialogContent>

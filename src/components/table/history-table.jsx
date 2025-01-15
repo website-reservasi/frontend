@@ -106,29 +106,31 @@ export default function HistoryTable() {
               <TableCell className="text-center">
                 {reservation.categoryPackage.name}
               </TableCell>
-              <TableCell className="flex flex-row flex-wrap items-center justify-center gap-2">
-                {reservation.status === "success" &&
-                  (reservation.review.length > 0 ? (
-                    <Link
-                      to={`/review/${reservation.id}/detail`}
-                      className={cn(buttonVariants({ size: "sm" }), "mr-2")}
-                    >
-                      Lihat Ulasan
-                    </Link>
-                  ) : (
-                    <Link
-                      to={`/review/${reservation.id}`}
-                      className={cn(buttonVariants({ size: "sm" }), "mr-2")}
-                    >
-                      Beri Ulasan
-                    </Link>
-                  ))}
-                <Link
-                  to={`/payment/${reservation.transactions.id}`}
-                  className={cn(buttonVariants({ size: "sm" }))}
-                >
-                  Pembayaran
-                </Link>
+              <TableCell className="">
+                <div className="flex flex-row flex-wrap items-center justify-center gap-2">
+                  {reservation.status === "success" &&
+                    (reservation.review.length > 0 ? (
+                      <Link
+                        to={`/review/${reservation.id}/detail`}
+                        className={cn(buttonVariants({ size: "sm" }), "mr-2")}
+                      >
+                        Lihat Ulasan
+                      </Link>
+                    ) : (
+                      <Link
+                        to={`/review/${reservation.id}`}
+                        className={cn(buttonVariants({ size: "sm" }), "mr-2")}
+                      >
+                        Beri Ulasan
+                      </Link>
+                    ))}
+                  <Link
+                    to={`/payment/${reservation.transactions.id}`}
+                    className={cn(buttonVariants({ size: "sm" }))}
+                  >
+                    Pembayaran
+                  </Link>
+                </div>
               </TableCell>
             </TableRow>
           );

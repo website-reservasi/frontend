@@ -287,14 +287,16 @@ export default function PackagesTable() {
                 {pack.description}
               </TableCell>
               <TableCell>{rupiahFormat(pack.price)}</TableCell>
-              <TableCell className="flex flex-wrap items-center justify-center gap-2 text-center">
-                <Link
-                  to={`/dashboard/packages/${pack.id}`}
-                  className={`bg-primary p-2 flex items-center justify-center text-white rounded-lg hover:bg-primary/70 ease-out duration-100`}
-                >
-                  <Pencil2Icon />
-                </Link>
-                <DeletePackage packageId={pack.id} />
+              <TableCell className="">
+                <div className="flex flex-wrap items-center justify-center gap-2 text-center">
+                  <Link
+                    to={`/dashboard/packages/${pack.id}`}
+                    className={`bg-primary w-9 h-9 flex items-center justify-center text-white rounded-sm hover:bg-primary/70 ease-out duration-100`}
+                  >
+                    <Pencil2Icon width={20} height={20} />
+                  </Link>
+                  <DeletePackage packageId={pack.id} />
+                </div>
               </TableCell>
             </TableRow>
           ))}

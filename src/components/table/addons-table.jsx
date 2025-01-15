@@ -282,14 +282,16 @@ export default function AddonsTable() {
               <TableCell>{addon.category.name}</TableCell>
               <TableCell>{addon.unit}</TableCell>
               <TableCell>{rupiahFormat(addon.price)}</TableCell>
-              <TableCell className="flex flex-wrap items-center justify-center gap-2 text-center">
-                <Link
-                  to={`/dashboard/addons/${addon.id}`}
-                  className={`bg-primary p-2 flex items-center justify-center text-white rounded-lg hover:bg-primary/70 ease-out duration-100`}
-                >
-                  <Pencil2Icon />
-                </Link>
-                <DeleteAddon addonId={addon.id} />
+              <TableCell className="">
+                <div className="flex flex-wrap items-center justify-center gap-2 text-center">
+                  <Link
+                    to={`/dashboard/addons/${addon.id}`}
+                    className={`bg-primary p-2 flex items-center justify-center text-white rounded-lg hover:bg-primary/70 ease-out duration-100`}
+                  >
+                    <Pencil2Icon />
+                  </Link>
+                  <DeleteAddon addonId={addon.id} />
+                </div>
               </TableCell>
             </TableRow>
           ))}
